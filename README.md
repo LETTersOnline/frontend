@@ -75,4 +75,5 @@ build/下的不需要编辑
 
 # Some Best Practices
 - [Authentication Best Practices for Vue](https://blog.sqreen.io/authentication-best-practices-vue/)
+- [http 状态码介绍](https://blog.csdn.net/fatong3/article/details/80350731)
 - loading...

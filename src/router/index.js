@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/views/HelloWorld';
-import Login from '@/views/Login';
-import Register from '@/views/Register';
+import Login from '@/views/account/Login';
+import Register from '@/views/account/Register';
 import store from '@/store';
 
 Vue.use(Router);
