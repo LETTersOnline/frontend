@@ -2,8 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>to-fe</title>
+    <meta name="viewport" content="width=1200">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <script>
+      // IE 10 and earlier
+      if (window.navigator.userAgent.indexOf('MSIE ') > 0 &&
+        window.confirm('Your browser is not supported, click \'OK\' to update')) {
+        window.location = 'http://outdatedbrowser.com'
+      }
+    </script>
+    <title>Training Online</title>
   </head>
   <body>
     <div id="app"></div>

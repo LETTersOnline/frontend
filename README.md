@@ -46,6 +46,31 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - semantic-ui-vue: semantic ui和vue配合使用的插件
 - semantic-ui-css: semantic的css文件
 - vuex: 管理全局状态
+- vue-avatar: 给用户添加默认头像，如果有上传头像，按照上传头像设置
+
+  - 应用层级的状态应该集中到单个 `store` 对象中
+    
+  - 提交 `mutation` 是更改状态的唯一方法，并且这个过程是同步的
+    
+  - 异步逻辑都应该封装到 `action` 里面
+
+### 基础配置
+build/下的不需要编辑
+
+在config/dev.env.js文件中修改开发配置，merge会用后面的配置覆盖前面的，配置好后端的ip和端口，以及代理转发
+
+默认将axios的`api/`请求都重定向到后端的`api/`请求
+
+在src根目录下，根目录一些文件或者文件夹解释，[更详细的介绍](https://segmentfault.com/a/1190000010659925)
+- `assets`: 静态文件目录
+- `components`: 组件，如导航栏，表单等可复用组件
+- `router`: 配置路由
+- `store`: 配合`vuex`进行状态管理，可模块化管理，目前将用户token和用户名都保存在根目录
+- `main.js`: 主入口js
+- `App.vue`: 项目入口组件
+- `api.js`: 配置后端的api路由，包装axios请求
+
+
 
 
 # Some Best Practices
