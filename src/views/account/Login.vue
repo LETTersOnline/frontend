@@ -69,8 +69,8 @@ export default {
       this.form_loading = 'active';
       this.$store.dispatch('AUTH_REQUEST', { username: this.usernameOrEmail, password: this.password })
         .then(() => {
-          this.$emit('postMessage', 'login success');
-          this.$router.push('/');
+          this.$emit('postMessage', '');
+          this.$router.push(this.$route.query.redirect || '/');
         }).catch((err) => {
           this.login_errors = [];
           const response = err.response;

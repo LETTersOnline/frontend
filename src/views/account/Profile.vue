@@ -1,0 +1,160 @@
+<template>
+  <sui-grid :columns="3" class="container">
+    <sui-dimmer inverted v-bind:class="loading">
+      <sui-loader></sui-loader>
+    </sui-dimmer>
+    <sui-grid-row stretched v-if="user">
+      <sui-grid-column>
+            <sui-card>
+              <sui-dimmer-dimmable
+                @mouseenter.native="cardActive = true"
+                @mouseleave.native="cardActive = false">
+                <sui-image v-bind:src="user.avatar ?
+                  user.avatar : iconTestPath "></sui-image>
+                <sui-dimmer blurring :active="onCardActive">
+                  <sui-button inverted>Edit Profile</sui-button>
+                </sui-dimmer>
+              </sui-dimmer-dimmable>
+              <sui-card-content>
+                <sui-card-header>{{ user.username }}</sui-card-header>
+                <sui-card-meta>Created in {{ user.date_joined }}</sui-card-meta>
+                <sui-card-meta>Last Seen {{ user.date_active }}</sui-card-meta>
+              </sui-card-content>
+              <sui-card-content extra>
+                <sui-statistics-group class="mini three">
+                  <sui-statistic>
+                    <sui-statistic-value>{{ user.accepted_number }}</sui-statistic-value>
+                    <sui-statistic-label>Accepted</sui-statistic-label>
+                  </sui-statistic>
+                  <sui-statistic>
+                    <sui-statistic-value>{{ user.submission_number }}</sui-statistic-value>
+                    <sui-statistic-label>Submitted</sui-statistic-label>
+                  </sui-statistic>
+                  <sui-statistic>
+                    <sui-statistic-value>{{ user.total_score }}</sui-statistic-value>
+                    <sui-statistic-label>Score</sui-statistic-label>
+                  </sui-statistic>
+                </sui-statistics-group>
+                <!--<a>-->
+                  <!--<sui-icon name="check"></sui-icon> {{ user.accepted_number }} Accepted-->
+                <!--</a>-->
+                <!--<br/>-->
+                <!--<a>-->
+                  <!--<sui-icon name="upload"></sui-icon> {{ user.submission_number }} Submitted-->
+                <!--</a>-->
+                <!--<br/>-->
+                <!--<a>-->
+                  <!--<sui-icon name="star"></sui-icon> {{ user.total_score }} Score-->
+                <!--</a>-->
+                <!--<br/>-->
+              </sui-card-content>
+            </sui-card>
+      </sui-grid-column>
+      <sui-grid-column class="left aligned">
+        <sui-grid-row>
+          <h4 class="ui top attached block header">Information</h4>
+          <div class="ui bottom attached segment">
+            <a class="ui red ribbon label">UID</a>
+              <div class="ui tag label">
+                {{ user.uid }}
+              </div>
+            <p></p>
+            <a class="ui orange ribbon label">Email</a>
+              <div class="ui tag label">
+                {{ user.email }}
+              </div>
+            <p></p>
+            <a class="ui yellow ribbon label">Major</a>
+              <div class="ui tag label">
+               {{ user.Major }}
+              </div>
+            <p></p>
+            <a class="ui olive ribbon label">School</a>
+              <div class="ui tag label">
+                {{ user.school }}
+              </div>
+            <p></p>
+            <a class="ui green ribbon label">Fullname</a>
+              <div class="ui tag label">
+               {{ user.fullname }}
+              </div>
+            <p></p>
+            <a class="ui blue ribbon label">User Role</a>
+            <sui-icon name="star"
+                      v-for="id in user.user_type"
+                      v-bind:key="id"
+            ></sui-icon>
+          </div>
+        </sui-grid-row>
+        <sui-grid-row>
+          <h4 class="ui top attached block header">Mood</h4>
+          <div class="ui bottom attached segment">
+            {{ user.mood }}
+          </div>
+        </sui-grid-row>
+      </sui-grid-column>
+      <sui-grid-column class="left aligned">
+        <sui-grid-row>
+          <h4 class="ui top attached block header">Statics</h4>
+          <div class="ui bottom attached segment">
+            Some Statics For User Solve here
+          </div>
+        </sui-grid-row>
+      </sui-grid-column>
+    </sui-grid-row>
+  </sui-grid>
+</template>
+
+<script>
+/* eslint-disable no-console */
+import { mapGetters } from 'vuex';
+import API from '@/api';
+
+import PIC from '@/assets/default-user-image.png';
+
+export default {
+  name: 'Profile',
+  data() {
+    return {
+      user: null,
+      loading: '',
+      cardActive: false,
+      iconTestPath: PIC,
+    };
+  },
+  computed: {
+    ...mapGetters([
+      'isAuthenticated',
+      'username',
+      'useravatar',
+      'userid',
+    ]),
+    onCardActive() {
+      return this.cardActive && this.isAuthenticated && (this.userid === this.$route.params.id);
+    },
+  },
+  methods: {
+    getUser() {
+      this.loading = 'active';
+      this.user = null;
+      API.get_user_info(this.$route.params.id).then((req) => {
+        console.log(req.data);
+        this.user = req.data;
+      }).catch((err) => {
+        console.log(err);
+        // this.$route.push('/');
+      }).finally(() => {
+        this.loading = '';
+      });
+    },
+
+  },
+  created() {
+    this.getUser();
+  },
+};
+</script>
+
+<style scoped>
+
+</style>

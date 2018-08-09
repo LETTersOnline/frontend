@@ -1,12 +1,12 @@
 <template>
-  <div class="ui" id="nav-bar">
+  <div class="ui container grid" id="nav-bar">
     <sui-menu :fixed="true" :borderless="true">
       <sui-dimmer inverted v-bind:class="menu_loading">
         <sui-loader></sui-loader>
       </sui-dimmer>
       <sui-container>
         <a is="sui-menu-item">
-          <img src="../assets/icpc_logo.png">
+          <img src="../assets/icpclogo/icpc_logo.png">
         </a>
         <router-link
           is="sui-menu-item"
@@ -46,16 +46,21 @@
           </sui-menu-item>
 
           <div class="ui simple dropdown item" v-else>
-            <avatar v-bind:username="username"
-                    v-bind:size="avatar_size"
-                    v-bind:src="useravatar">
-            </avatar>
-            <a href="" style="color: inherit; padding-left: 10px">
+            <router-link :to="{ name: 'profile', params: { id: userid }}"
+                         style="color: inherit; padding-left: 10px">
+              <avatar v-bind:username="username"
+                      v-bind:size="avatar_size"
+                      v-bind:src="useravatar">
+              </avatar>
+            </router-link>
+
+            <router-link :to="{ name: 'profile', params: { id: userid }}"
+                         style="color: inherit; padding-left: 10px">
                 {{username}}
               <i class="dropdown icon"></i>
-            </a>
-            <div class="menu"><a href="" style="color: inherit; "></a>
-              <a class="item" href=""><i class="edit icon"></i>Edit Profile</a>
+            </router-link>
+            <div class="menu">
+              <a class="item" href=""><i class="edit icon"></i>Edit</a>
               <a class="item" v-on:click="logout"><i class="power icon"></i>Logout</a>
             </div>
           </div>
@@ -78,7 +83,7 @@ export default {
       menu_loading: '',
       items: ['Home', 'Problem', 'Contest', 'Status', 'Rank'],
       icons: ['home', 'list', 'calendar', 'tasks', 'signal'],
-      links: ['/', '/login', '/', '/', '/'],
+      links: ['/', '#', '#', '#', '#'],
       avatar_size: 24,
     };
   },
@@ -99,6 +104,7 @@ export default {
       'isAuthenticated',
       'username',
       'useravatar',
+      'userid',
     ]),
   },
 };

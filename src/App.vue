@@ -9,13 +9,13 @@
 </template>
 
 <script>
-/* eslint-disable prefer-arrow-callback,func-names */
+/* eslint-disable prefer-arrow-callback,func-names,no-console */
 // TODO 把template改造为使用纯vue.js+semantic-ui, 不再使用sui扩展
 // TODO 待改造: NavBar.vue Login.vue
 import Footer from '@/components/Footer';
 import NavBar from '@/components/NavBar';
 import MessageBlock from '@/components/MessageBlock';
-import Vue from 'vue';
+import router from '@/router';
 
 export default {
   name: 'App',
@@ -29,17 +29,10 @@ export default {
 
   },
   created() {
-    Vue.axios.interceptors.response.use(function (response) {
-      // Do something with response data
-      return response;
-    }, function (error) {
-      // Do something with response error
-      if (error.status === 401 && error.config) {
-        this.$store.dispatch('AUTH_LOGOUT').then();
-        this.$route.push('/login');
-      }
-      return Promise.reject(error);
-    });
+    // console.log('app created');
+    // console.log(this.$store);
+    console.log(router.currentRoute.path);
+    this.$store.dispatch('AUTH_INSPECT', router.currentRoute.path);
   },
 };
 </script>

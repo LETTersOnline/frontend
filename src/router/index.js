@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/views/HelloWorld';
+import Home from '@/views/home';
 import Login from '@/views/account/Login';
 import Register from '@/views/account/Register';
+import Profile from '@/views/account/Profile';
 import store from '@/store';
+import error404 from '@/views/error404';
+import error403 from '@/views/error403';
 
 Vue.use(Router);
 
@@ -28,8 +31,8 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      name: 'home',
+      component: Home,
       beforeEnter: ifAuthenticated,
     },
     {
@@ -43,6 +46,21 @@ export default new Router({
       name: 'register',
       component: Register,
       beforeEnter: ifNotAuthenticated,
+    },
+    {
+      path: '/user/:id',
+      name: 'profile',
+      component: Profile,
+    },
+    {
+      path: '/forbid',
+      name: 'forbid',
+      component: error403,
+    },
+    {
+      path: '*',
+      name: 'notFound',
+      component: error404,
     },
   ],
   // linkExactActiveClass: 'active',
