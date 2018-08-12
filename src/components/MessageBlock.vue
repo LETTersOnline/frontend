@@ -32,6 +32,11 @@ export default {
       this.$emit('postMessage', '');
     },
   },
+  updated() {
+    setTimeout(() => {
+      this.$emit('postMessage', '');
+    }, 2500);
+  },
 };
 </script>
 

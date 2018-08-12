@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <NavBar></NavBar>
-    <MessageBlock v-bind:message="glob_message"
-                  v-on:postMessage="glob_message = $event"></MessageBlock>
-    <router-view v-on:postMessage="glob_message = $event"/>
-    <Footer></Footer>
+    <NavBar/>
+    <MessageBlock
+      :message="glob_message"
+      @postMessage="glob_message = $event"/>
+    <router-view @postMessage="glob_message = $event"/>
+    <Footer/>
   </div>
 </template>
 

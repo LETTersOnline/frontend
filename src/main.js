@@ -11,6 +11,8 @@ import 'semantic-ui-css/semantic.min.css';
 import 'highlight.js/styles/xcode.css';
 import Avatar from 'vue-avatar';
 import VueHighlightJS from 'vue-highlightjs';
+import VueClipboard from 'vue-clipboard2';
+
 
 // 导入内部资源
 import App from './App';
@@ -35,6 +37,9 @@ Vue.use(SuiVue);
 Vue.use(Vuex);
 
 Vue.component('avatar', Avatar);
+
+VueClipboard.config.autoSetContainer = true; // add this line
+Vue.use(VueClipboard);
 
 const token = localStorage.getItem('user-token');
 if (token) {

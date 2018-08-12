@@ -3,9 +3,7 @@
     <div class="ui middle aligned center aligned twelve wide column">
       <div class="column">
         <h2 class="ui image header">
-          <div class="content">
             Register Your Account
-          </div>
         </h2>
         <form class="ui large form">
           <sui-dimmer inverted v-bind:class="form_loading">

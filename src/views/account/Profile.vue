@@ -35,18 +35,6 @@
                     <sui-statistic-label>Score</sui-statistic-label>
                   </sui-statistic>
                 </sui-statistics-group>
-                <!--<a>-->
-                  <!--<sui-icon name="check"></sui-icon> {{ user.accepted_number }} Accepted-->
-                <!--</a>-->
-                <!--<br/>-->
-                <!--<a>-->
-                  <!--<sui-icon name="upload"></sui-icon> {{ user.submission_number }} Submitted-->
-                <!--</a>-->
-                <!--<br/>-->
-                <!--<a>-->
-                  <!--<sui-icon name="star"></sui-icon> {{ user.total_score }} Score-->
-                <!--</a>-->
-                <!--<br/>-->
               </sui-card-content>
             </sui-card>
       </sui-grid-column>
@@ -54,27 +42,42 @@
         <sui-grid-row>
           <h4 class="ui top attached block header">Information</h4>
           <div class="ui bottom attached segment">
-            <a class="ui red ribbon label">UID</a>
+            <a class="ui red ribbon label"
+               v-clipboard:copy="user.uid"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">UID</a>
               <div class="ui tag label">
                 {{ user.uid }}
               </div>
             <p></p>
-            <a class="ui orange ribbon label">Email</a>
+            <a class="ui orange ribbon label"
+               v-clipboard:copy="user.email"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">Email</a>
               <div class="ui tag label">
                 {{ user.email }}
               </div>
             <p></p>
-            <a class="ui yellow ribbon label">Major</a>
+            <a class="ui yellow ribbon label"
+               v-clipboard:copy="user.major"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">Major</a>
               <div class="ui tag label">
-               {{ user.Major }}
+               {{ user.major }}
               </div>
             <p></p>
-            <a class="ui olive ribbon label">School</a>
+            <a class="ui olive ribbon label"
+               v-clipboard:copy="user.school"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">School</a>
               <div class="ui tag label">
                 {{ user.school }}
               </div>
             <p></p>
-            <a class="ui green ribbon label">Fullname</a>
+            <a class="ui green ribbon label"
+               v-clipboard:copy="user.fullname"
+               v-clipboard:success="onCopy"
+               v-clipboard:error="onError">Fullname</a>
               <div class="ui tag label">
                {{ user.fullname }}
               </div>
@@ -106,7 +109,8 @@
 </template>
 
 <script>
-/* eslint-disable no-console */
+/* eslint-disable no-alert,no-console */
+
 import { mapGetters } from 'vuex';
 import API from '@/api';
 
@@ -147,11 +151,19 @@ export default {
         this.loading = '';
       });
     },
-
+    onCopy(e) {
+      const title = e.trigger.innerText;
+      this.$emit('postMessage', ` ${title} copied`);
+    },
+    onError() {
+      alert('Failed to copy texts');
+    },
   },
   created() {
     this.getUser();
   },
+
+
 };
 </script>
 
