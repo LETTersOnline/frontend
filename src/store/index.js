@@ -22,12 +22,16 @@ const getters = {
     if (state.user) return state.user.username;
     return '';
   },
-  useravatar: (state) => {
+  userAvatar: (state) => {
     if (state.user) return state.user.avatar;
     return '';
   },
-  userid: (state) => {
+  userId: (state) => {
     if (state.user) return state.user.id;
+    return '';
+  },
+  userType: (state) => {
+    if (state.user) return state.user.user_type;
     return '';
   },
 };
@@ -93,9 +97,9 @@ const actions = {
       const exp = decoded.exp;
       const origIat = decoded.orig_iat;
       // 7天过期，有效期30天
-      console.log('exp: ', exp);
-      console.log('orig iat: ', origIat);
-      console.log('date now: ', (Date.now() / 1000));
+      // console.log('exp: ', exp);
+      // console.log('orig iat: ', origIat);
+      // console.log('date now: ', (Date.now() / 1000));
       if (exp - (Date.now() / 1000) >= 24 * 60 * 60) {
         // do nothing
       } else if (exp - (Date.now() / 1000) < 24 * 60 * 60

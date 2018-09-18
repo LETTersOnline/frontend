@@ -46,21 +46,25 @@
           </sui-menu-item>
 
           <div class="ui simple dropdown item" v-else>
-            <router-link :to="{ name: 'profile', params: { id: userid }}"
+            <router-link :to="{ name: 'profile', params: { id: userId }}"
                          style="color: inherit; padding-left: 10px">
               <avatar v-bind:username="username"
                       v-bind:size="avatar_size"
-                      v-bind:src="useravatar">
+                      v-bind:src="userAvatar">
               </avatar>
             </router-link>
 
-            <router-link :to="{ name: 'profile', params: { id: userid }}"
+            <router-link :to="{ name: 'profile', params: { id: userId }}"
                          style="color: inherit; padding-left: 10px">
                 {{username}}
               <i class="dropdown icon"></i>
             </router-link>
             <div class="menu">
-              <a class="item" href=""><i class="edit icon"></i>Edit</a>
+              <router-link tag="a" class="item"
+                           :to="{name: 'profileEdit', params: {id: userId }}">
+                <i class="edit icon"></i>Edit
+              </router-link>
+              <!--<a class="item" href=""><i class="edit icon"></i>Edit</a>-->
               <a class="item" v-on:click="logout"><i class="power icon"></i>Logout</a>
             </div>
           </div>
@@ -103,8 +107,8 @@ export default {
     ...mapGetters([
       'isAuthenticated',
       'username',
-      'useravatar',
-      'userid',
+      'userAvatar',
+      'userId',
     ]),
   },
 };

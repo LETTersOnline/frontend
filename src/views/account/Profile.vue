@@ -10,9 +10,13 @@
                 @mouseenter.native="cardActive = true"
                 @mouseleave.native="cardActive = false">
                 <sui-image v-bind:src="user.avatar ?
-                  user.avatar : iconTestPath "></sui-image>
+                  user.avatar : defaultAvatarImage "></sui-image>
                 <sui-dimmer blurring :active="onCardActive">
-                  <sui-button inverted>Edit Profile</sui-button>
+                  <router-link tag="sui-button" inverted
+                               :to="{name: 'profileEdit', params: {id: user.id }}">
+                    Edit Profile
+                  </router-link>
+                  <!--<sui-button inverted>Edit Profile</sui-button>-->
                 </sui-dimmer>
               </sui-dimmer-dimmable>
               <sui-card-content>
@@ -114,7 +118,7 @@
 import { mapGetters } from 'vuex';
 import API from '@/api';
 
-import PIC from '@/assets/default-user-image.png';
+import defaultAvatarImage from '@/assets/default-user-image.png';
 
 export default {
   name: 'Profile',
@@ -123,18 +127,18 @@ export default {
       user: null,
       loading: '',
       cardActive: false,
-      iconTestPath: PIC,
+      defaultAvatarImage,
     };
   },
   computed: {
     ...mapGetters([
       'isAuthenticated',
       'username',
-      'useravatar',
-      'userid',
+      'userAvatar',
+      'userId',
     ]),
     onCardActive() {
-      return this.cardActive && this.isAuthenticated && (this.userid === this.$route.params.id);
+      return this.cardActive && this.isAuthenticated && (this.userId === this.$route.params.id);
     },
   },
   methods: {
@@ -142,11 +146,10 @@ export default {
       this.loading = 'active';
       this.user = null;
       API.get_user_info(this.$route.params.id).then((req) => {
-        console.log(req.data);
         this.user = req.data;
+        // eslint-disable-next-line no-unused-vars
       }).catch((err) => {
-        console.log(err);
-        // this.$route.push('/');
+        this.$router.replace({ name: 'notFound' });
       }).finally(() => {
         this.loading = '';
       });

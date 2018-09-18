@@ -57,16 +57,16 @@ Vue.axios.interceptors.response.use(
           store.commit('AUTH_LOGOUT');
           // 只有在当前路由不是登录页面才跳转
           if (router.currentRoute.path !== 'login') {
-            router.push({ name: 'login', query: { redirect: router.currentRoute.path } });
+            router.replace({ name: 'login', query: { redirect: router.currentRoute.path } });
           }
           break;
         case 403:
           // forbid
-          router.push({ name: 'forbid' });
+          router.replace({ name: 'forbid' });
           break;
         case 404:
           // not found
-          router.push({ name: 'notFound' });
+          router.replace({ name: 'notFound' });
           break;
         default: break;
       }

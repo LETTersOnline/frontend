@@ -22,6 +22,7 @@ export default {
   hitokoto(cat) {
     return external_axios.get(hitokoto_url + cat);
   },
+  // account method
   login_jwt(handle, password) {
     const payload = {
       username: handle,
@@ -52,10 +53,21 @@ export default {
     };
     return Vue.axios.post('/auth/user/', payload);
   },
-  get_user_list() {
-    return Vue.axios.get('/auth/user/');
-  },
   get_user_info(id) {
     return Vue.axios.get(`/auth/user/${id}`);
+  },
+  upload_avatar(id, avatar) {
+    const data = new FormData();
+    data.append('avatar', avatar, 'avatar.png');
+    return Vue.axios.patch(`/auth/user/${id}/`,
+      data,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+  },
+  get_user_list() {
+    return Vue.axios.get('/auth/user/');
   },
 };

@@ -32,7 +32,7 @@ export default {
   created() {
     // console.log('app created');
     // console.log(this.$store);
-    console.log(router.currentRoute.path);
+    // console.log(router.currentRoute.path);
     this.$store.dispatch('AUTH_INSPECT', router.currentRoute.path);
   },
 };

@@ -3,9 +3,7 @@
     <div class="ui middle aligned center aligned twelve wide column">
       <div class="column">
         <h2 class="ui image header">
-          <div class="content">
-            Login In
-          </div>
+          Login In
         </h2>
         <form class="ui large form">
           <sui-dimmer inverted v-bind:class="form_loading">
@@ -69,7 +67,7 @@ export default {
       this.form_loading = 'active';
       this.$store.dispatch('AUTH_REQUEST', { username: this.usernameOrEmail, password: this.password })
         .then(() => {
-          this.$emit('postMessage', '');
+          this.$emit('postMessage', 'login success');
           this.$router.push(this.$route.query.redirect || '/');
         }).catch((err) => {
           this.login_errors = [];

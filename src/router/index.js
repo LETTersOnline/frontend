@@ -1,9 +1,11 @@
+/* eslint-disable no-trailing-spaces,no-console */
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/home';
 import Login from '@/views/account/Login';
 import Register from '@/views/account/Register';
 import Profile from '@/views/account/Profile';
+import ProfileEdit from '@/views/account/ProfileEdit';
 import store from '@/store';
 import error404 from '@/views/error404';
 import error403 from '@/views/error403';
@@ -53,12 +55,17 @@ export default new Router({
       component: Profile,
     },
     {
+      path: '/user/:id/edit',
+      name: 'profileEdit',
+      component: ProfileEdit,
+    },
+    {
       path: '/forbid',
       name: 'forbid',
       component: error403,
     },
     {
-      path: '*',
+      path: '/notFound',
       name: 'notFound',
       component: error404,
     },
