@@ -14,13 +14,14 @@
               <div class="ui left icon input">
                 <i class="user icon"></i>
                 <input type="text" name="email" placeholder="email address or username"
-                       v-model="usernameOrEmail">
+                       v-model="usernameOrEmail" autocomplete="on">
               </div>
             </div>
             <div class="field">
               <div class="ui left icon input">
                 <i class="lock icon"></i>
-                <input type="password" name="password" placeholder="Password" v-model="password">
+                <input type="password" name="password" placeholder="Password" v-model="password"
+                       autocomplete="on">
               </div>
             </div>
             <div class="ui fluid large teal submit button" @click="login">Login</div>
@@ -68,8 +69,14 @@ export default {
       this.$store.dispatch('AUTH_REQUEST', { username: this.usernameOrEmail, password: this.password })
         .then(() => {
           this.$emit('postMessage', 'login success');
+          console.log(this.$route.query.redirect);
+          console.log(this.$router.currentRoute.path);
+          if (this.$route.query.redirect === this.$router.currentRoute.path) {
+            this.$router.push('/');
+          }
           this.$router.push(this.$route.query.redirect || '/');
         }).catch((err) => {
+        console.log(err);
           this.login_errors = [];
           const response = err.response;
           if (response && response.data) {

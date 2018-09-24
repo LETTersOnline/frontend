@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h4 class="ui top attached block header">一言
+    <h4 class="ui top attached block header">Hitokoto
       <sui-dropdown>
         {{ this.hitokotoState }}
         :)
@@ -25,12 +25,12 @@
 </template>
 
 <script>
-/* eslint-disable no-console */
+  /* eslint-disable no-console */
 
-import api from '@/api';
-import { mapMutations, mapState } from 'vuex';
+  import api from '@/api';
+  import { mapMutations, mapState } from 'vuex';
 
-export default {
+  export default {
   name: 'SideHitokoto',
   data() {
     return {
@@ -71,13 +71,13 @@ export default {
       ;
     },
     select(name) {
-      const sel = api.hitokoto_type.name;
+      const sel = api.hitokoto_type[name];
       this.SET_HITOKOTO(name);
       this.getHitokoto(sel);
     },
   },
   created() {
-    const sel = api.hitokoto_type.hitokotoState;
+    const sel = api.hitokoto_type[this.hitokotoState];
     this.getHitokoto(sel);
   },
 };

@@ -10,15 +10,16 @@
 </template>
 
 <script>
-/* eslint-disable prefer-arrow-callback,func-names,no-console */
-// TODO 把template改造为使用纯vue.js+semantic-ui, 不再使用sui扩展
-// TODO 待改造: NavBar.vue Login.vue
-import Footer from '@/components/Footer';
-import NavBar from '@/components/NavBar';
-import MessageBlock from '@/components/MessageBlock';
-import router from '@/router';
+  /* eslint-disable prefer-arrow-callback,func-names,no-console */
+  // TODO 把template改造为使用纯vue.js+semantic-ui, 不再使用sui扩展
+  // TODO 待改造: NavBar.vue Login.vue
+  import Footer from '@/components/Footer';
+  import NavBar from '@/components/NavBar';
+  import MessageBlock from '@/components/MessageBlock';
+  import router from '@/router';
+  import store from '@/store';
 
-export default {
+  export default {
   name: 'App',
   components: { MessageBlock, Footer, NavBar },
   data() {
@@ -30,10 +31,19 @@ export default {
 
   },
   created() {
+    console.log('app create');
+    if (store.getters.isAuthenticated) {
+      this.$store.dispatch('AUTH_VERIFY')
+        .catch((err) => {
+          console.log(err);
+          router.replace({ name: 'login', query: { redirect: router.currentRoute.path } });
+        });
+    }
+
     // console.log('app created');
     // console.log(this.$store);
     // console.log(router.currentRoute.path);
-    this.$store.dispatch('AUTH_INSPECT', router.currentRoute.path);
+    // this.$store.dispatch('AUTH_INSPECT', router.currentRoute.path);
   },
 };
 </script>

@@ -2,26 +2,38 @@
   <div class="hello">
     <sui-grid class="container">
       <sui-grid-column class="eleven wide">
-
+        <sui-grid-row>
+          <div class="ui huge header left aligned">
+            <a href="">
+              Title
+            </a></div>
+        </sui-grid-row>
+        <sui-grid-row>
+          <user-full-rank :page="page_num" style="padding-top: 20px;"></user-full-rank>
+        </sui-grid-row>
       </sui-grid-column>
 
       <sui-grid-column class="five wide">
         <side-hitokoto></side-hitokoto>
+        <user-rank :page="page_num" style="padding-top: 20px;"></user-rank>
       </sui-grid-column>
+
     </sui-grid>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import SideHitokoto from '@/components/SideHitokoto';
+  import { mapGetters } from 'vuex';
+  import SideHitokoto from '@/components/SideHitokoto';
+  import UserRank from '@/components/UserMiniRank';
+  import UserFullRank from '@/components/UserRank';
 
-export default {
+  export default {
   name: 'HelloWorld',
-  components: { SideHitokoto },
+    components: { SideHitokoto, UserRank, UserFullRank },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      page_num: 1,
       fetch: '',
     };
   },

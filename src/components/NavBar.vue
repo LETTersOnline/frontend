@@ -5,11 +5,12 @@
         <sui-loader></sui-loader>
       </sui-dimmer>
       <sui-container>
-        <a is="sui-menu-item">
-          <img src="../assets/icpclogo/icpc_logo.png">
+        <a is="sui-menu-item" @click="scroll">
+          <img :src="logo">
         </a>
         <router-link
           is="sui-menu-item"
+          exact
           exact-active-class="active"
           v-for="(item, index) in items"
           :key="item"
@@ -77,9 +78,10 @@
 
 <script>
 
-import { mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
+  import logo from '@/assets/logo.jpg';
 
-export default {
+  export default {
   name: 'NavBar',
   data() {
     return {
@@ -89,12 +91,18 @@ export default {
       icons: ['home', 'list', 'calendar', 'tasks', 'signal'],
       links: ['/', '#', '#', '#', '#'],
       avatar_size: 24,
+      logo,
     };
   },
   methods: {
     select(name) {
       this.active = name;
       this.menu_loading = 'active';
+    },
+    scroll() {
+      // eslint-disable-next-line
+      console.log('scroll');
+      this.$router.push('/');
     },
     logout() {
       this.$store.dispatch('AUTH_LOGOUT')
@@ -107,8 +115,8 @@ export default {
     ...mapGetters([
       'isAuthenticated',
       'username',
-      'userAvatar',
       'userId',
+      'userAvatar',
     ]),
   },
 };
